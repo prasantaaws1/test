@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Variable Declarations
+
+PACKAGE="httpd wget unzip"
+SVC="httpd"
+URL='wget https://www.free-css.com/assets/files/free-css-templates/download/page279/grad-school.zip'
+ART='grad-school.zip'
+ART_NAME='templatemo_557_grad_school'
+TEMPDIR="/tmp/webfiles"
+
+
+
+
+# Installing dependencies
+echo ==================================================
+echo "Installing packages."
+echo ==================================================
+
+sudo yum install $PACKAGE -y > /dev/null
+echo
+
+# Start and enable service
+echo ==================================================
+echo "Start and enable HTTPD service"
+echo ==================================================
+
+sudo systemctl start $SVC
+sudo systemctl enable $SVC
+echo
+
+# Creating Temp Directory
+echo ==================================================
+echo "Starting Artifact Deployment"
+echo ==================================================
+
+mkdir -p $TEMPDIR
+cd $TEMPDIR
+echo
+
+wget $URL > /dev/null
+unzip $ART > /dev/null
+sudo cp -r $ART_NAME/* /var/www/html/
+echo
+
+# Bounce Service
+echo ==================================================
+echo "Restarting HTTPD"
+echo ==================================================
+
+systemctl restart $SVC
+echo
+
+# Clean up
+echo ==================================================
+echo "Removing Temporary Files"
+echo ==================================================
+
+rm -rf $TEMPDIR
+echo
+
+
+sudo systemctl status httpd
+ls /var/www/html/

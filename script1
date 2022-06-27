@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Welcome to bash script"
+
+# Checking system uptime
+echo =================================
+echo "The uptime for the script is : "
+uptime
+
+echo =================================
+
+
+# Checking memory utilization
+echo "Memory utilization is : "
+free -m
+
+echo =================================
+
+
+# Checking disk utilization
+echo "Disk utilization is : "
+df -h

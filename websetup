@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Installing dependencies
+echo ==================================================
+echo "Installing packages."
+echo ==================================================
+
+sudo yum install wget unzip httpd -y > /dev/null
+echo
+
+# Start and enable service
+echo ==================================================
+echo "Start and enable HTTPD service"
+echo ==================================================
+
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo
+
+# Creating Temp Directory
+echo ==================================================
+echo "Starting Artifact Deployment"
+echo ==================================================
+
+mkdir -p /tmp/webfiles
+cd /tmp/webfiles
+echo
+
+wget https://www.free-css.com/assets/files/free-css-templates/download/page279/grad-school.zip > /dev/null
+unzip grad-school.zip > /dev/null
+sudo cp -r templatemo_557_grad_school/* /var/www/html/
+echo
+
+# Bounce Service
+echo ==================================================
+echo "Restarting HTTPD"
+echo ==================================================
+
+systemctl restart httpd
+echo
+
+# Clean up
+echo ==================================================
+echo "Removing Temporary Files"
+echo ==================================================
+
+rm -rf /tmp/webfiles
+echo
+
+
+sudo systemctl status httpd
+ls /var/www/html/

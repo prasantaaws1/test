@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "My name is : $1"
+echo "My age is : $2"
+echo "I am from : $3"
+
+echo "Name of the script is : $0"
+echo "Exit status of the script is : $?"
+echo "Process ID is : $$"
+echo "Total number of arguments passed are : $#"
+echo "List of arguments passed are : $@"
+
+echo $USER
+echo $HOSTNAME
+echo $SECONDS
+echo $RANDOM
+echo $LINENO
